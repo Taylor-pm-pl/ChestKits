@@ -6,4 +6,7 @@ projects:
   ChestKits:
     path: ""
     icon: "assets/images/icon.png"
+    libs:
+    - src: JinodkDevTeam/FormAPI/libFormAPI
+      version: ^1.4.0-alpha
 ...
