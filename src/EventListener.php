@@ -10,16 +10,27 @@ use DaPigGuy\PiggyCustomEnchants\enchants\CustomEnchant;
 use pocketmine\item\ItemFactory;
 use pocketmine\item\Item;
 
+/**
+ * Class EventListener
+ * @package DavidGlitch04\ChestKits
+ */
 class EventListener implements Listener{
-
+    /** @var ChestKits $chestkits */
     private ChestKits $chestkits;
 
+    /**
+     * EventListener constructor.
+     * @param ChestKits $chestkits
+     */
     public function __construct(ChestKits $chestkits)
     {
         $this->chestkits = $chestkits;
     }
 
-    public function onTap(BlockPlaceEvent $event){
+    /**
+     * @param BlockPlaceEvent $event
+     */
+    public function onTap(BlockPlaceEvent $event): void{
         $item = $event->getItem();
         $player = $event->getPlayer();
         $world = $player->getWorld();
@@ -41,11 +52,19 @@ class EventListener implements Listener{
             }
             $item->setCount($item->getCount() - 1);
             $player->getInventory()->setItemInHand($item);
-            $player->sendMessage("Open kit success");
+            $player->sendMessage(ChestKits::getLanguage()->translateString("kit.open"));
             $event->cancel();
         }
     }
 
+    /**
+     * @param int $id
+     * @param int $damage
+     * @param int $count
+     * @param string $name
+     * @param mixed ...$enchantments
+     * @return Item
+     */
     public function loadItem(int $id = 0, int $damage = 0, int $count = 1, string $name = "default", ...$enchantments): Item{
         $item = ItemFactory::getInstance()->get($id, $damage, $count);
         if(strtolower($name) !== "default"){

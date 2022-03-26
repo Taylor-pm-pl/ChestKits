@@ -1,0 +1,7 @@
+language: vie
+Prefix: "[Chestkits] "
+Form.title: "Chestkits Form"
+Form.content: "Choose kit you want to buy:"
+Purchase.title: "Purchase Form"
+Purchase.accept: "Accept"
+Purchase.decline: "Decline"

@@ -5,12 +5,20 @@ namespace DavidGlitch04\ChestKits\Economy;
 use DavidGlitch04\ChestKits\ChestKits;
 use pocketmine\player\Player;
 
+/**
+ * Class EconomyManager
+ * @package DavidGlitch04\ChestKits\Economy
+ */
 class EconomyManager{
-
+    /** @var \pocketmine\plugin\Plugin|null $eco */
     private $eco;
-
+    /** @var ChestKits $plugin */
     private ChestKits $plugin;
 
+    /**
+     * EconomyManager constructor.
+     * @param ChestKits $plugin
+     */
     public function __construct(ChestKits $plugin){
         $this->plugin = $plugin;
         $manager = $plugin->getServer()->getPluginManager();
@@ -18,6 +26,10 @@ class EconomyManager{
         unset($manager);
     }
 
+    /**
+     * @param Player $player
+     * @return int
+     */
     public function getMoney(Player $player): int {
         switch ($this->eco->getName()){
             case "EconomyAPI":
@@ -32,6 +44,11 @@ class EconomyManager{
         return $balance;
     }
 
+    /**
+     * @param Player $player
+     * @param int $amount
+     * @return bool
+     */
     public function reduceMoney(Player $player, int $amount){
         if($this->eco == null){
             $this->plugin->getLogger()->warning("You not have Economy plugin");
