@@ -75,7 +75,7 @@ class EventListener implements Listener{
             if($key % 2 === 0){ //Name expected
                 $enchantment = StringToEnchantmentParser::getInstance()->parse((string)$name_level);
                 if($enchantment === null){
-                    $enchantment = CustomEnchant::getEnchantmentByName((string)$name_level);
+                    $enchantment = CustomEnchantManager::getEnchantmentByName((string)$name_level);
                 }
             }elseif($enchantment !== null){
                  $item->addEnchantment(new EnchantmentInstance($enchantment, (int)$name_level));
