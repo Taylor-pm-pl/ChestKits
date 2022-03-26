@@ -3,3 +3,4 @@ version: 0.0.1
 api: 4.0.0
 src-namespace-prefix: DavidGlitch04\ChestKits
 main: DavidGlitch04\ChestKits\ChestKits
+website: https://github.com/DavidGlitch04

@@ -1,7 +1,12 @@
-language: vie
-Prefix: "[Chestkits] "
-Form.title: "Chestkits Form"
-Form.content: "Choose kit you want to buy:"
-Purchase.title: "Purchase Form"
-Purchase.accept: "Accept"
-Purchase.decline: "Decline"
+# Main Config of ChestKits
+# Choose your preferred language:
+# Currently the plugin is supporting English (eng) and Vietnamese (vie) languages.
+language: eng
+# This is the prefix for the message
+prefix: "&c[&aChestkits&c] "
+# Some information for Form
+form.title: "Chestkits Form"
+form.content: "Choose kit you want to buy:"
+purchase.title: "Purchase Form"
+purchase.accept: "Accept"
+purchase.decline: "Decline"

@@ -6,6 +6,7 @@ use DavidGlitch04\ChestKits\ChestKits;
 use DavidGlitch04\ChestKits\Economy\EconomyManager;
 use jojoe77777\FormAPI\SimpleForm;
 use pocketmine\player\Player;
+use pocketmine\utils\TextFormat;
 
 /**
  * Class CKitsForm
@@ -32,7 +33,7 @@ class CKitsForm {
      * @param Player $player
      * @return bool|SimpleForm
      */
-    private function openForm(Player $player): void {
+    private function openForm(Player $player) {
         $form = new SimpleForm(function (Player $player, $data){
             if(!isset($data)){
                 return false;
@@ -43,19 +44,20 @@ class CKitsForm {
             );
         });
         if(empty($this->chestkits->kits->getAll())){
-            $player->sendMessage(ChestKits::getLanguage()->translateString("no.kits"));
-            return;
+            $player->sendMessage($this->chestkits->getMessage("no.kits"));
+            return false;
         }
         foreach ($this->chestkits->kits->getAll() as $key){
             $form->addButton($key["name"]."\n".$key["price"]);
         }
         $config = $this->chestkits->getConfig();
-        $form->setTitle($config->get("Form.title", "Chestkits Form"));
-        $form->setContent($config->get("Form.content", "Choose kit you want to buy:"));
+        $form->setTitle($config->get("form.title", "Chestkits Form"));
+        $form->setContent($config->get("form.content", "Choose kit you want to buy:"));
         $player->sendForm($form);
+        return $form;
     }
 
-    private function PurchaseForm(Player $player, int $key): void{
+    private function PurchaseForm(Player $player, int $key){
         $plugin = $this->chestkits;
         $kits = $plugin->kits->get(array_keys($plugin->kits->getAll())[$key]);
         $form = new SimpleForm(function (Player $player, $data) use ($kits, $plugin){
@@ -73,11 +75,11 @@ class CKitsForm {
                             $kits["name"],
                             $kits["lore"]
                         );
-                        $player->sendMessage(ChestKits::getLanguage()->translateString("purchase.success"));
-                        return;
+                        $player->sendMessage($plugin->getMessage("purchase.success"));
+                        return false;
                     } else{
-                        $player->sendMessage(ChestKits::getLanguage()->translateString("purchase.fail", [(int)$kits["price"]]));
-                        return;
+                        $player->sendMessage($plugin->getMessage("purchase.fail", [(int)$kits["price"]]));
+                        return false;
                     }
                 case 1:
                     //NOTHING
@@ -85,10 +87,11 @@ class CKitsForm {
             }
         });
         $config = $this->chestkits->getConfig();
-        $form->setTitle($config->get("Purchase.title", "Purchase Form"));
+        $form->setTitle($config->get("purchase.title", "Purchase Form"));
         $form->setContent($kits["content"]);
-        $form->addButton($config->get("Purchase.accept", "Accept"));
-        $form->addButton($config->get("Purchase.decline", "Decline"));
+        $form->addButton($config->get("purchase.accept", "Accept"));
+        $form->addButton($config->get("purchase.decline", "Decline"));
         $player->sendForm($form);
+        return $form;
     }
 }

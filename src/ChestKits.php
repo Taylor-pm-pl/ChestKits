@@ -12,6 +12,7 @@ use pocketmine\player\Player;
 use pocketmine\plugin\Plugin;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
+use pocketmine\utils\TextFormat;
 
 /**
  * Class ChestKits
@@ -44,7 +45,7 @@ class ChestKits extends PluginBase{
         $this->saveResource("kits.yml");
         $this->kits = new Config($this->getDataFolder()."kits.yml", Config::YAML);
         $this->piggyEnchants = $this->getServer()->getPluginManager()->getPlugin("PiggyCustomEnchants");
-        $this->initLanguage(strval($this->getConfig()->get("language", "vie")), $this->languages);
+        $this->initLanguage(strval($this->getConfig()->get("language", "eng")), $this->languages);
     }
 
     /**
@@ -62,6 +63,10 @@ class ChestKits extends PluginBase{
             }
         }
         self::$language = new Language($lang, $path);
+    }
+
+    public function getPrefix(): string{
+        return strval($this->getConfig()->get("prefix", "&c[&aChestkits&c] "));
     }
 
     /**
@@ -88,5 +93,17 @@ class ChestKits extends PluginBase{
         } else{
             return false;
         }
+    }
+
+    public function getMessage(string $msg, array $replace = null){
+        $prefix = $this->getPrefix();
+        if($replace == null){
+            $msg = ChestKits::getLanguage()->translateString($msg);
+            $msg = TextFormat::colorize($prefix . $msg);
+        } else{
+            $msg = ChestKits::getLanguage()->translateString($msg, $replace);
+            $msg = TextFormat::colorize($prefix . $msg);
+        }
+        return $msg;
     }
 }

@@ -1,3 +1,14 @@
+# Kit:
+  # name: "Kit Name"
+  # lore: "lore of chest"
+  # price: price
+  # items:
+    # - "id:meta:amount:name:..enchantment"
+  # helmet: "id:meta:amount:name:..enchantment"
+  # chestplate: "id:meta:amount:name:..enchantment"
+  # leggings: "id:meta:amount:name:..enchantment"
+  # boots: "id:meta:amount:name:..enchantment"
+  # content: "content"
 test:
   name: "Test Kit"
   lore: "\n Test Kit \n Line 2"

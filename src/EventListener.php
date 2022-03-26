@@ -52,7 +52,7 @@ class EventListener implements Listener{
             }
             $item->setCount($item->getCount() - 1);
             $player->getInventory()->setItemInHand($item);
-            $player->sendMessage(ChestKits::getLanguage()->translateString("kit.open"));
+            $player->sendMessage($this->chestkits->getMessage("kit.open"));
             $event->cancel();
         }
     }
