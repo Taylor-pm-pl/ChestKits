@@ -9,4 +9,6 @@ projects:
     libs:
     - src: JinodkDevTeam/FormAPI/libFormAPI
       version: ^1.4.0-alpha
+    lint:
+      phpstan: false
 ...
