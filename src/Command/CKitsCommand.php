@@ -2,13 +2,19 @@
 
 namespace DavidGlitch04\ChestKits\Command;
 
-use DavidGlitch04\ChestKits\ChestKits;
-use DavidGlitch04\ChestKits\Form\CKitsForm;
-use pocketmine\command\Command;
-use pocketmine\command\CommandSender;
+use DavidGlitch04\ChestKits\{
+    ChestKits,
+    Form\CKitsForm
+};
+use pocketmine\command\{
+    Command,
+    CommandSender
+};
 use pocketmine\player\Player;
-use pocketmine\plugin\Plugin;
-use pocketmine\plugin\PluginOwned;
+use pocketmine\plugin\{
+    Plugin,
+    PluginOwned
+};
 
 /**
  * Class CKitsCommand

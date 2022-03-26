@@ -2,11 +2,15 @@
 
 namespace DavidGlitch04\ChestKits\Form;
 
-use DavidGlitch04\ChestKits\ChestKits;
-use DavidGlitch04\ChestKits\Economy\EconomyManager;
+use DavidGlitch04\ChestKits\{
+    ChestKits,
+    Economy\EconomyManager
+};
 use jojoe77777\FormAPI\SimpleForm;
-use pocketmine\player\Player;
-use pocketmine\utils\TextFormat;
+use pocketmine\{
+    player\Player,
+    utils\TextFormat
+};
 
 /**
  * Class CKitsForm

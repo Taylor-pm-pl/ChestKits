@@ -2,18 +2,27 @@
 
 namespace DavidGlitch04\ChestKits;
 
-use DavidGlitch04\ChestKits\Command\CKitsCommand;
-use pocketmine\item\Item;
-use pocketmine\item\ItemFactory;
-use pocketmine\item\VanillaItems;
-use pocketmine\lang\Language;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\player\Player;
-use pocketmine\plugin\Plugin;
-use pocketmine\plugin\PluginBase;
-use pocketmine\utils\Config;
-use pocketmine\utils\TextFormat;
-
+use pocketmine\item\{
+    Item,
+    ItemFactory,
+    VanillaItems
+};
+use pocketmine\plugin\{
+    Plugin,
+    PluginBase
+};
+use DavidGlitch04\ChestKits\{
+    Command\CKitsCommand,
+    Task\CheckUpdateTask
+};
+use pocketmine\{
+    lang\Language,
+    nbt\tag\StringTag,
+    player\Player,
+    utils\Config,
+    utils\TextFormat
+};
+use function strval;
 /**
  * Class ChestKits
  * @package DavidGlitch04\ChestKits
@@ -46,6 +55,10 @@ class ChestKits extends PluginBase{
         $this->kits = new Config($this->getDataFolder()."kits.yml", Config::YAML);
         $this->piggyEnchants = $this->getServer()->getPluginManager()->getPlugin("PiggyCustomEnchants");
         $this->initLanguage(strval($this->getConfig()->get("language", "eng")), $this->languages);
+    }
+
+    private function checkUpdate(bool $isRetry = false): void{
+        $this->getServer()->getAsyncPool()->submitTask(new CheckUpdateTask($this->getDescription()->getName(), $this->getDescription()->getVersion()));
     }
 
     /**

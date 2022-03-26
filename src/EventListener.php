@@ -2,13 +2,17 @@
 
 namespace DavidGlitch04\ChestKits;
 
-use pocketmine\event\block\BlockPlaceEvent;
-use pocketmine\event\Listener;
-use pocketmine\item\enchantment\EnchantmentInstance;
-use pocketmine\item\enchantment\StringToEnchantmentParser;
+use pocketmine\event\{
+    Listener,
+    block\BlockPlaceEvent
+};
+use pocketmine\item\{
+    Item,
+    ItemFactory,
+    enchantment\EnchantmentInstance,
+    enchantment\StringToEnchantmentParser
+};
 use DaPigGuy\PiggyCustomEnchants\enchants\CustomEnchantManager;
-use pocketmine\item\ItemFactory;
-use pocketmine\item\Item;
 
 /**
  * Class EventListener
@@ -78,7 +82,7 @@ class EventListener implements Listener{
                     $enchantment = CustomEnchantManager::getEnchantmentByName((string)$name_level);
                 }
             }elseif($enchantment !== null){
-                 $item->addEnchantment(new EnchantmentInstance($enchantment, (int)$name_level));
+                $item->addEnchantment(new EnchantmentInstance($enchantment, (int)$name_level));
             }
         }
 
