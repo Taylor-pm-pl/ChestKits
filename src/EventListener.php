@@ -6,7 +6,7 @@ use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\Listener;
 use pocketmine\item\enchantment\EnchantmentInstance;
 use pocketmine\item\enchantment\StringToEnchantmentParser;
-use DaPigGuy\PiggyCustomEnchants\enchants\CustomEnchant;
+use DaPigGuy\PiggyCustomEnchants\enchants\CustomEnchantManager;
 use pocketmine\item\ItemFactory;
 use pocketmine\item\Item;
 
@@ -78,11 +78,7 @@ class EventListener implements Listener{
                     $enchantment = CustomEnchant::getEnchantmentByName((string)$name_level);
                 }
             }elseif($enchantment !== null){
-                if($this->chestkits->piggyEnchants !== null && $enchantment instanceof CustomEnchant){
-                    $item->addEnchantment($enchantment, (int)$name_level);
-                }else{
-                    $item->addEnchantment(new EnchantmentInstance($enchantment, (int)$name_level));
-                }
+                 $item->addEnchantment(new EnchantmentInstance($enchantment, (int)$name_level));
             }
         }
 
