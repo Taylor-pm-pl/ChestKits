@@ -71,20 +71,19 @@ class CKitsForm {
             switch ($data){
                 case 0:
                     $ecoManager = new EconomyManager($plugin);
-                    $money = $ecoManager->getMoney($player);
-                    if($money >= (int)$kits["price"]){
-                        $ecoManager->reduceMoney($player, (int)$kits["price"]);
-                        $this->chestkits->sendKit(
-                            $player,
-                            $kits["name"],
-                            $kits["lore"]
-                        );
-                        $player->sendMessage($plugin->getMessage("purchase.success"));
-                        return false;
-                    } else{
-                        $player->sendMessage($plugin->getMessage("purchase.fail", [(int)$kits["price"]]));
-                        return false;
-                    }
+                    $chestkits = $this->chestkits;
+                    $ecoManager->reduceMoney($player, (int)$kits["price"], static function(bool $success) use($player, $kits, $chestkits, $plugin) : void {
+                        if($success){
+                            $chestkits->sendKit(
+                                $player,
+                                $kits["name"],
+                                $kits["lore"]
+                            );
+                            $player->sendMessage($plugin->getMessage("purchase.success"));
+                        }else{                        
+                            $player->sendMessage($plugin->getMessage("purchase.fail", [(int)$kits["price"]]));
+                        }
+                    });
                 case 1:
                     //NOTHING
                     break;
