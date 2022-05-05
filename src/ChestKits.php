@@ -22,6 +22,7 @@ use pocketmine\{
     utils\Config,
     utils\TextFormat
 };
+use pocketmine\block\VanillaBlocks;
 use function strval;
 /**
  * Class ChestKits
@@ -88,7 +89,7 @@ class ChestKits extends PluginBase{
      * @param string $lore
      */
     public function sendKit(Player $player, string $name, string $lore): void{
-        $kit = ItemFactory::getInstance()->get(54, 0, 1);
+        $kit = VanillaBlocks::CHEST()->asItem();
         $kit->getNamedTag()
             ->setString("chestkits", $name);
         $kit->setCustomName($name);
