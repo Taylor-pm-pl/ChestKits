@@ -32,6 +32,7 @@ class CKitsCommand extends Command implements PluginOwned{
         $this->chestkits = $chestkits;
         parent::__construct("chestkits");
         $this->setDescription("Chestkits command");
+        $this->setPermission("chestkits.command.allow");
     }
 
     /**
