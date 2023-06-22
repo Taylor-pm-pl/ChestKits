@@ -1,11 +1,11 @@
+---
 name: ChestKits
 version: 0.0.2
 api: 5.0.0
-src-namespace-prefix: DavidGlitch04\ChestKits
 main: DavidGlitch04\ChestKits\ChestKits
 website: https://github.com/taylordevs
-
 permissions:
   chestkits.command.allow:
     default: op
-    description: "Allow player to use chestkits"
+    description: Allow player to use chestkits
+...
