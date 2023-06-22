@@ -3,7 +3,7 @@
 <a href="https://poggit.pmmp.io/p/ChestKits"><img src="https://poggit.pmmp.io/shield.dl.total/ChestKits"></a>
 [![Discord](https://img.shields.io/discord/1100650029573738508.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/yAhsgskaGy)
 
-**NOTICE:** This plugin branch is for PocketMine-MP 4.
+**NOTICE:** This plugin branch is for PocketMine-MP 5.
 
 A kit plugin is more interesting when adding a kit to the chest.
 With easy-to-understand configuration.
