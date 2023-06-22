@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DavidGlitch04\ChestKits\Task;
 
 use pocketmine\{

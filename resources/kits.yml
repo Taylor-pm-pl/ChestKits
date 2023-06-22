@@ -3,21 +3,21 @@
   # lore: "lore of chest"
   # price: price
   # items:
-    # - "id:meta:amount:name:..enchantment"
-  # helmet: "id:meta:amount:name:..enchantment"
-  # chestplate: "id:meta:amount:name:..enchantment"
-  # leggings: "id:meta:amount:name:..enchantment"
-  # boots: "id:meta:amount:name:..enchantment"
+    # - "item name:amount:name:..enchantment"
+  # helmet: "item name:amount:name:..enchantment"
+  # chestplate: "item name:amount:name:..enchantment"
+  # leggings: "item name:amount:name:..enchantment"
+  # boots: "item name:amount:name:..enchantment"
   # content: "content"
 test:
   name: "Test Kit"
   lore: "\n Test Kit \n Line 2"
   price: 10000
   items:
-    - "276:0:1:Test Sword:sharpness:10:knockback:5"
-    - "1:0:1"
-  helmet: "310:0:1:Test Helmet:protection:10:unbreaking:10"
-  chestplate: "311:0:1:Test Chesplate:protection:10:unbreaking:10"
-  leggings: "312:0:1:Test Leggings:protection:10:unbreaking:10"
-  boots: "313:0:1:Test Boots:protection:10:unbreaking:10"
+    - "Diamond Sword:1:Test Sword:sharpness:10:knockback:5"
+    - "Stick:1"
+  helmet: "Diamond Helmet:1:Test Helmet:protection:10:unbreaking:10"
+  chestplate: "Diamond Chestplate:1:Test Chestplate:protection:10:unbreaking:10"
+  leggings: "Diamond Leggings:1:Test Leggings:protection:10:unbreaking:10"
+  boots: "Diamond Boots:1:Test Boots:protection:10:unbreaking:10"
   content: "Do you want to buy test kit ?"

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DavidGlitch04\ChestKits\Form;
 
 use DavidGlitch04\ChestKits\{
     ChestKits,
     Economy\EconomyManager
 };
-use jojoe77777\FormAPI\SimpleForm;
+use Vecnavium\FormsUI\SimpleForm;
 use pocketmine\{
     player\Player,
     utils\TextFormat
@@ -35,9 +37,9 @@ class CKitsForm {
 
     /**
      * @param Player $player
-     * @return bool|SimpleForm
+     * @return void
      */
-    private function openForm(Player $player) {
+    private function openForm(Player $player): void {
         $form = new SimpleForm(function (Player $player, $data){
             if(!isset($data)){
                 return false;
@@ -49,7 +51,7 @@ class CKitsForm {
         });
         if(empty($this->chestkits->kits->getAll())){
             $player->sendMessage($this->chestkits->getMessage("no.kits"));
-            return false;
+            return;
         }
         foreach ($this->chestkits->kits->getAll() as $key){
             $form->addButton($key["name"]."\n".$key["price"]);
@@ -58,15 +60,16 @@ class CKitsForm {
         $form->setTitle($config->get("form.title", "Chestkits Form"));
         $form->setContent($config->get("form.content", "Choose kit you want to buy:"));
         $player->sendForm($form);
-        return $form;
     }
 
-    private function PurchaseForm(Player $player, int $key){
+    private function PurchaseForm(Player $player, int $key): void
+    {
         $plugin = $this->chestkits;
         $kits = $plugin->kits->get(array_keys($plugin->kits->getAll())[$key]);
         $form = new SimpleForm(function (Player $player, $data) use ($kits, $plugin){
             if(!isset($data)){
-                return $this->openForm($player);
+                $this->openForm($player);
+                return;
             }
             switch ($data){
                 case 0:
@@ -95,6 +98,5 @@ class CKitsForm {
         $form->addButton($config->get("purchase.accept", "Accept"));
         $form->addButton($config->get("purchase.decline", "Decline"));
         $player->sendForm($form);
-        return $form;
     }
 }

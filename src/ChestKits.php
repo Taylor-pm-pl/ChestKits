@@ -3,9 +3,7 @@
 namespace DavidGlitch04\ChestKits;
 
 use pocketmine\item\{
-    Item,
-    ItemFactory,
-    VanillaItems
+    Item
 };
 use pocketmine\plugin\{
     Plugin,
@@ -31,8 +29,8 @@ use function strval;
 class ChestKits extends PluginBase{
     /** @var Config $kits */
     public Config $kits;
-    /** @var Plugin $piggyEnchants */
-    public $piggyEnchants;
+    /** @var Plugin|null $piggyEnchants */
+    public ?Plugin $piggyEnchants;
     /** @var Language $language */
     public static Language $language;
     /** @var array|string[] $languages */
@@ -58,7 +56,7 @@ class ChestKits extends PluginBase{
         $this->initLanguage(strval($this->getConfig()->get("language", "eng")), $this->languages);
     }
 
-    private function checkUpdate(bool $isRetry = false): void{
+    private function checkUpdate(): void{
         $this->getServer()->getAsyncPool()->submitTask(new CheckUpdateTask($this->getDescription()->getName(), $this->getDescription()->getVersion()));
     }
 
@@ -109,7 +107,8 @@ class ChestKits extends PluginBase{
         }
     }
 
-    public function getMessage(string $msg, array $replace = null){
+    public function getMessage(string $msg, array $replace = null): string
+    {
         $prefix = $this->getPrefix();
         if($replace == null){
             $msg = ChestKits::getLanguage()->translateString($msg);

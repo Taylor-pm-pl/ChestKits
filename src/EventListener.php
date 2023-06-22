@@ -6,12 +6,11 @@ use pocketmine\event\{
     Listener,
     block\BlockPlaceEvent
 };
-use pocketmine\item\{
-    Item,
-    ItemFactory,
+use pocketmine\item\{Item,
     enchantment\EnchantmentInstance,
-    enchantment\StringToEnchantmentParser
-};
+    enchantment\StringToEnchantmentParser,
+    StringToItemParser,
+    VanillaItems};
 use DaPigGuy\PiggyCustomEnchants\enchants\CustomEnchantManager;
 
 /**
@@ -38,20 +37,18 @@ class EventListener implements Listener{
         $item = $event->getItem();
         $player = $event->getPlayer();
         $world = $player->getWorld();
-        $vector3 = $event->getBlock()->getPosition()->asVector3();
+        $position = $event->getBlockAgainst()->getPosition();
         if($this->chestkits->isChestKit($item)){
             $kitname = $item->getNamedTag()->getString("chestkits");
             foreach ($this->chestkits->kits->getAll() as $kits){
                 if($kits["name"] == $kitname){
-                    $tag = 0;
                     foreach($kits["items"] as $itemString){
-                        $tag++;
-                        $world->dropItem($vector3, $i = $this->loadItem(...explode(":", $itemString)));
+                        $world->dropItem($position, $this->loadItem(...explode(":", $itemString)));
                     }
-                    isset($kits["helmet"]) and $world->dropItem($vector3, $this->loadItem(...explode(":", $kits["helmet"])));
-                    isset($kits["chestplate"]) and $world->dropItem($vector3, $this->loadItem(...explode(":", $kits["chestplate"])));
-                    isset($kits["leggings"]) and $world->dropItem($vector3, $this->loadItem(...explode(":", $kits["leggings"])));
-                    isset($kits["boots"]) and $world->dropItem($vector3, $this->loadItem(...explode(":", $kits["boots"])));
+                    isset($kits["helmet"]) and $world->dropItem($position, $this->loadItem(...explode(":", $kits["helmet"])));
+                    isset($kits["chestplate"]) and $world->dropItem($position, $this->loadItem(...explode(":", $kits["chestplate"])));
+                    isset($kits["leggings"]) and $world->dropItem($position, $this->loadItem(...explode(":", $kits["leggings"])));
+                    isset($kits["boots"]) and $world->dropItem($position, $this->loadItem(...explode(":", $kits["boots"])));
                 }
             }
             $item->setCount($item->getCount() - 1);
@@ -62,15 +59,17 @@ class EventListener implements Listener{
     }
 
     /**
-     * @param int $id
-     * @param int $damage
-     * @param int $count
+     * @param string $itemName
      * @param string $name
-     * @param mixed ...$enchantments
+     * @param mixed  ...$enchantments
      * @return Item
      */
-    public function loadItem(int $id = 0, int $damage = 0, int $count = 1, string $name = "default", ...$enchantments): Item{
-        $item = ItemFactory::getInstance()->get($id, $damage, $count);
+    public function loadItem(string $itemName, int $amount, string $name = "default", ...$enchantments): Item{
+        $item = StringToItemParser::getInstance()->parse($itemName);
+        if ($item === null) {
+            $item = VanillaItems::AIR();
+        }
+        $item->setCount($amount);
         if(strtolower($name) !== "default"){
             $item->setCustomName($name);
         }
@@ -78,7 +77,7 @@ class EventListener implements Listener{
         foreach($enchantments as $key => $name_level){
             if($key % 2 === 0){ //Name expected
                 $enchantment = StringToEnchantmentParser::getInstance()->parse((string)$name_level);
-                if($enchantment === null){
+                if($enchantment === null && class_exists(CustomEnchantManager::class)){
                     $enchantment = CustomEnchantManager::getEnchantmentByName((string)$name_level);
                 }
             }elseif($enchantment !== null){

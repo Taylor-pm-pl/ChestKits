@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DavidGlitch04\ChestKits\Command;
 
 use DavidGlitch04\ChestKits\{
@@ -54,7 +56,6 @@ class CKitsCommand extends Command implements PluginOwned{
                 $this->chestkits,
                 $sender
             );
-            return;
         } else{
             $this->chestkits->getLogger()->warning("Please use this command in game!");
         }

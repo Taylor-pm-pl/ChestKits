@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DavidGlitch04\ChestKits\Economy;
 
 use Closure;
@@ -7,14 +9,15 @@ use cooldogedev\BedrockEconomy\libs\cooldogedev\libSQL\context\ClosureContext;
 use onebone\economyapi\EconomyAPI;
 use DavidGlitch04\ChestKits\ChestKits;
 use pocketmine\player\Player;
+use pocketmine\plugin\Plugin;
 
 /**
  * Class EconomyManager
  * @package DavidGlitch04\ChestKits\Economy
  */
 class EconomyManager{
-    /** @var \pocketmine\plugin\Plugin|null $eco */
-    private $eco;
+    /** @var Plugin|null $eco */
+    private ?Plugin $eco;
     /** @var ChestKits $plugin */
     private ChestKits $plugin;
 
@@ -64,10 +67,10 @@ class EconomyManager{
         }
         switch ($this->eco->getName()){
             case "EconomyAPI":
-                $callback($this->eco->reduceMoney($player->getName(), $money) === EconomyAPI::RET_SUCCESS);
+                $callback($this->eco->reduceMoney($player->getName(), $amount) === EconomyAPI::RET_SUCCESS);
                 break;
             case "BedrockEconomy":
-                $this->eco->getAPI()->subtractFromPlayerBalance($player->getName(), (int) ceil($money), ClosureContext::create(static function(bool $success) use($callback) : void{
+                $this->eco->getAPI()->subtractFromPlayerBalance($player->getName(), (int) ceil($amount), ClosureContext::create(static function(bool $success) use($callback) : void{
                     $callback($success);
                 }));
                 break;
