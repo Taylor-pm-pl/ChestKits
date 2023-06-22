@@ -8,7 +8,7 @@ use DavidGlitch04\ChestKits\{
     ChestKits,
     Economy\EconomyManager
 };
-use DavidGlitch04\ChestKits\libs\Vecnavium\FormsUI\SimpleForm;
+use Vecnavium\FormsUI\SimpleForm;
 use pocketmine\{
     player\Player,
     utils\TextFormat
