@@ -15,7 +15,6 @@ use DavidGlitch04\ChestKits\{
 };
 use pocketmine\{
     lang\Language,
-    nbt\tag\StringTag,
     player\Player,
     utils\Config,
     utils\TextFormat
@@ -54,6 +53,7 @@ class ChestKits extends PluginBase{
         $this->kits = new Config($this->getDataFolder()."kits.yml", Config::YAML);
         $this->piggyEnchants = $this->getServer()->getPluginManager()->getPlugin("PiggyCustomEnchants");
         $this->initLanguage(strval($this->getConfig()->get("language", "eng")), $this->languages);
+        $this->checkUpdate();
     }
 
     private function checkUpdate(): void{
@@ -100,11 +100,7 @@ class ChestKits extends PluginBase{
      * @return bool
      */
     public function isChestKit(Item $item): bool{
-        if($item->getNamedTag()->getTag("chestkits") !== null){
-            return true;
-        } else{
-            return false;
-        }
+        return $item->getNamedTag()->getTag("chestkits") !== null;
     }
 
     public function getMessage(string $msg, array $replace = null): string
@@ -112,11 +108,9 @@ class ChestKits extends PluginBase{
         $prefix = $this->getPrefix();
         if($replace == null){
             $msg = ChestKits::getLanguage()->translateString($msg);
-            $msg = TextFormat::colorize($prefix . $msg);
         } else{
             $msg = ChestKits::getLanguage()->translateString($msg, $replace);
-            $msg = TextFormat::colorize($prefix . $msg);
         }
-        return $msg;
+        return TextFormat::colorize($prefix . $msg);
     }
 }
